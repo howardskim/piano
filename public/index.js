@@ -33,7 +33,7 @@ function saveSong(){
     }).catch(err => console.log(err))
 }
 function playSongBack(){
-    if(currentSong.notes.length > 0){
+    if(currentSong && currentSong.notes.length > 0){
         songNotes = currentSong.notes
     };
     if(songNotes && songNotes.length < 1) return;
