@@ -34,10 +34,13 @@ body{
 .black.active{
     background: #333;
 }
-
+.song-link{
+    background: white;;
+}
 .buttons{
     margin-bottom: 2rem;
     display: flex;
+    justify-content: space-evenly;
 }
 .btn{
     padding: 0.5rem 1rem;
@@ -46,7 +49,7 @@ body{
     color: inherit;
     text-decoration: none;
     cursor: pointer;
-    border-radius: 10%;
+    border-radius: 2%;
 }
 .btn:focus{
     outline: none;
@@ -59,11 +62,13 @@ body{
 }
 
 .play-button,
-.save-button{
+.save-button,
+.song-link{
     display: none;
 }
 .play-button.show,
-.save-button.show{
+.save-button.show,
+.song-link.show{
     display: block;
     margin-left: 7%;
 }

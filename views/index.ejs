@@ -3,14 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Song Recorder</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="shortcut icon" href="#">
+    <script>
+        const currentSong = <%- JSON.stringify(locals.song) || 'undefined' %>
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="buttons">
-        <button class="record-button btn">Record</button>
-        <button class="play-button btn">Play</button>
-        <button class="save-button btn">Save</button>
+        
+        <% if(locals.song === null || locals.song === undefined) { %>
+            <button class="record-button btn">Record</button>
+            <button class="save-button btn">Save</button>
+            <button class="play-button btn">Play</button>
+        <% } else { %>
+            <button><a href="/" class="btn">Record New Song</a></button>
+            <button class="play-button btn show">Play</button>
+        <% } %>
+        <!-- <button class="record-button btn">Record</button> -->
+        <button class="btn song-link">
+            <a target="_blank" href="#" class="link-tag">View</a>
+        </button>
     </div>
     <div class="piano">
         <div data-note="C" class="key white"></div>
@@ -26,18 +41,19 @@
         <div data-note="Bb" class="key black"></div>
         <div data-note="B" class="key white"></div>
     </div>
-      <audio id="C" src="notes/C.mp3"></audio>
-      <audio id="Db" src="notes/Db.mp3"></audio>
-      <audio id="D" src="notes/D.mp3"></audio>
-      <audio id="Eb" src="notes/Eb.mp3"></audio>
-      <audio id="E" src="notes/E.mp3"></audio>
-      <audio id="F" src="notes/F.mp3"></audio>
-      <audio id="Gb" src="notes/Gb.mp3"></audio>
-      <audio id="G" src="notes/G.mp3"></audio>
-      <audio id="Ab" src="notes/Ab.mp3"></audio>
-      <audio id="A" src="notes/A.mp3"></audio>
-      <audio id="Bb" src="notes/Bb.mp3"></audio>
-      <audio id="B" src="notes/B.mp3"></audio>
-    <script src="index.js"></script>
+      <audio id="C" src="/notes/C.mp3"></audio>
+      <audio id="Db" src="/notes/Db.mp3"></audio>
+      <audio id="D" src="/notes/D.mp3"></audio>
+      <audio id="Eb" src="/notes/Eb.mp3"></audio>
+      <audio id="E" src="/notes/E.mp3"></audio>
+      <audio id="F" src="/notes/F.mp3"></audio>
+      <audio id="Gb" src="/notes/Gb.mp3"></audio>
+      <audio id="G" src="/notes/G.mp3"></audio>
+      <audio id="Ab" src="/notes/Ab.mp3"></audio>
+      <audio id="A" src="/notes/A.mp3"></audio>
+      <audio id="Bb" src="/notes/Bb.mp3"></audio>
+      <audio id="B" src="/notes/B.mp3"></audio>
+    
+    <script src="/index.js"></script>
 </body>
 </html>

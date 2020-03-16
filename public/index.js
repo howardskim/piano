@@ -6,25 +6,41 @@ const whiteDivs = document.querySelectorAll('.white');
 const recordButton = document.querySelector('.record-button');
 const playButton = document.querySelector(".play-button");
 const saveButton = document.querySelector(".save-button");
-
+const viewSongButton = document.querySelector(".song-link");
+const linkTag = document.querySelector('.link-tag')
 let recordingStartTime;
-let songNotes;
+let songNotes = null;
+
 const keyMap = [...keys].reduce((map, key) => {
     map[key.dataset.note] = key;
     return map;
 }, {})
-recordButton.addEventListener('click', toggleRecording);
-playButton.addEventListener('click', playSongBack);
-saveButton.addEventListener('click', saveSong);
+if(recordButton){
+    recordButton.addEventListener("click", toggleRecording);
+} 
+if(playButton){
+    playButton.addEventListener('click', playSongBack);
+} 
+if(saveButton){
+    saveButton.addEventListener('click', saveSong);
+} 
 function saveSong(){
-    
+    axios.post('/songs', {
+        songNotes: songNotes
+    }).then((resp) => {
+        viewSongButton.classList.add("show");
+        linkTag.href = `/songs/${resp.data._id}`;
+    }).catch(err => console.log(err))
 }
 function playSongBack(){
-    if(songNotes.length < 1) return;
+    if(currentSong.notes.length > 0){
+        songNotes = currentSong.notes
+    };
+    if(songNotes && songNotes.length < 1) return;
     playButton.classList.toggle('active');
     if(playButton.classList.contains('active')){
         playSong();
-    }
+    } 
 }
 function toggleRecording(){
     recordButton.classList.toggle('active');
@@ -39,7 +55,9 @@ function toggleRecording(){
     }
 };
 function isRecording(){
-    return recordButton.classList.contains('active');
+    if(recordButton){
+        return recordButton.classList.contains("active");
+    }
 };
 function startRecording(){
     recordingStartTime = Date.now();
@@ -50,8 +68,8 @@ function stopRecording(){
     saveButton.classList.add('show')
 };
 function playSong(){
-    if(songNotes.length === 0) return;
-    songNotes.forEach((note) => {
+    if(songNotes && songNotes.length === 0) return;
+    songNotes && songNotes.forEach((note) => {
         setTimeout(() => {
             playAudio(keyMap[note.key])
         }, note.startTime)
