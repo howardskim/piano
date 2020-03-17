@@ -7,7 +7,7 @@ var PORT = process.env.PORT || 5000
 //used howardkimserver@gmail
 const db = config.get("mongoURI");
 mongoose
-  .connect(db, {
+  .connect(process.env.MONGODB_URI || db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
