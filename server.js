@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const Song = require('./models/song.js');
 const config = require('config');
-
+var PORT = process.env.PORT || 5000
 //used howardkimserver@gmail
 const db = config.get("mongoURI");
 mongoose
@@ -54,6 +54,6 @@ app.get('/songs/:id', async (req, res) => {
 //     };
 //     res.render('index', {song: song})
 // })
-app.listen(5000, () => {
-    console.log('on port 5000')
-})
+app.listen(PORT, () => {
+  console.log("on port 5000");
+});
